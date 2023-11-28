@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# pomodoro-app
-=======
 # pomodoro
 
 ## Build Setup
