@@ -14,11 +14,11 @@
 				{{ description }}
 			</p>
 		</main>
-		<footer class="flex w-full gap-x-2">
-			<button class="text-white bg-red hover:bg-red-dark h-3 w-1/2" @click="resetChallenges">
+		<footer class="flex w-full gap-x-2 pt-2">
+			<button class="button failed" @click="resetChallenges">
 				Failed
 			</button>
-			<button class="text-white bg-green hover:bg-green-dark h-3 w-1/2" @click="challengeSucceeded">
+			<button class="button succeeded" @click="challengeSucceeded">
 				Completed
 			</button>
 		</footer>

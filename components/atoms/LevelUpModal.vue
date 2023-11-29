@@ -6,7 +6,7 @@
 			@click="setModalState(false)"
 		>
 			<div class="bg-white w-full max-w-md p-10 rounded-md shadow-lg text-center relative" @click.stop>
-				<header class="text-9xl font-semibold text-blue bg-contain">
+				<header class="text-9xl font-semibold text-green-dark bg-contain">
 					{{ level }}
 				</header>
 
