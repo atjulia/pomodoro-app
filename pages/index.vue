@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col lg:flex-row flex-1 lg:flex-none lg:mt-16 sm:gab-x-10 md:gap-x-20">
+  <section class="flex flex-col lg:flex-row flex-1 lg:flex-none lg:mt-16 sm:gab-x-10 md:gap-x-20 ">
     <div class="flex flex-col w-full lg:w-1/2">
       <Profile />
       <CompletedChallenges />
@@ -26,20 +26,23 @@
         Start cycle
       </button>
     </div>
+    <Card  id="challenge" class="w-full lg:w-1/2" />
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import { Mutations as ChallengesMT } from '@/store/challenges/types' 
 import { Mutations as CountdownMT } from '@/store/countdown/types'
 
 import CompletedChallenges from '@/components/atoms/CompletedChallenges.vue'
 import Profile from '@/components/molecules/Profile.vue'
 import Countdown from '@/components/molecules/Countdown.vue'
+import Card from '@/components/organisms/Card.vue'
 
-import { playAudio, sendNotification } from '@/utils'
+import { playAudio, sendNotification, getRandomNumber, scroollToElement } from '@/utils'
 interface Head {
   title: string
 }
@@ -53,7 +56,8 @@ export default Vue.extend({
   components: {
     CompletedChallenges,
     Profile,
-    Countdown
+    Countdown,
+    Card
   },
   mounted () {
     if ('Notification' in window) {
@@ -64,19 +68,24 @@ export default Vue.extend({
     ...mapState('countdown', {
       hasCountdownCompleted: 'hasCompleted',
       isCountdownActive: 'isActive',
-    })
+    }),
+    ...mapGetters('challenges', ['challengesLength'])
   },
   methods: {
     ...mapMutations({
       setCountdownHasCompleted: `countdown/${CountdownMT.SET_HAS_COMPLETED}`,
-      setCountdownIsActive: `countdown/${CountdownMT.SET_IS_ACTIVE}`
+      setCountdownIsActive: `countdown/${CountdownMT.SET_IS_ACTIVE}`,
+      setCurrentChallengesIndex: `challenges/${ChallengesMT.SET_CURRENT_CHALLENGE_INDEX}`
     }),
     setCountdownState (flag: boolean) {
       this.setCountdownHasCompleted(false)
       this.setCountdownIsActive(flag)
     },
     getNewChallenge () {
+      const index = getRandomNumber(0, this.challengesLength)
+      console.log(index)
       this.setCountdownHasCompleted(true)
+      this.setCurrentChallengesIndex(index)
 
       if (Notification?.permission === 'granted') {
         playAudio('/notification.mp3')
@@ -85,6 +94,10 @@ export default Vue.extend({
           icon: '/favicon.png'
         })
       }
+
+      this.$nextTick(() => {
+        scroollToElement('#challenge')
+      })
     }
   }
 })
