@@ -1,27 +1,26 @@
 <template>
-  <section class="flex flex-col lg:flex-row flex-1 lg:flex-none lg:mt-16 sm:gab-x-10 md:gap-x-20 ">
-    <div class="flex flex-col w-full lg:w-1/2">
-      <Profile />
+  <section class="flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20 ">
+    <div class="flex flex-col w-full lg:w-1/2 pb-4">
       <CompletedChallenges />
-      <Countdown @completed="getNewChallenge"/>
+      <Countdown @completed="getNewChallenge" class="pb-2"/>
       <button 
         v-if="hasCountdownCompleted" 
         disabled 
-        class="bg-white text-text border-b-2 border-green cursor-not-allowed h-20"
+        class="button completed"
       >
         Cycle completed
       </button>
       <button 
         v-else-if="isCountdownActive" 
         @click="setCountdownState(false)" 
-        class="bg-white text-text hover:bg-red hover:text-white h-20"
+        class="button abandon"
       >
         Abandon cycle
       </button>
       <button 
         v-else 
         @click="setCountdownState(true)" 
-        class="bg-blue text-white hover:bg-blue-dark h-20"
+        class="button start"
       >
         Start cycle
       </button>
@@ -50,7 +49,7 @@ interface Head {
 export default Vue.extend({
   head (): Head {
     return {
-      title: 'Home | pomodoro'
+      title: 'Home | Pomodorofocus'
     } 
   },
   components: {
@@ -91,7 +90,7 @@ export default Vue.extend({
         playAudio('/notification.mp3')
         sendNotification('New Challenge', {
           body: 'A new challenge has started! Go complete it!',
-          icon: '/favicon.png'
+          icon: '/favicon.svg'
         })
       }
 
