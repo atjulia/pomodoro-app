@@ -32,7 +32,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { Mutations as ChallengesMT } from '@/store/challenges/types' 
 import { Mutations as CountdownMT } from '@/store/countdown/types'
 
@@ -40,6 +40,8 @@ import CompletedChallenges from '@/components/atoms/CompletedChallenges.vue'
 import Profile from '@/components/molecules/Profile.vue'
 import Countdown from '@/components/molecules/Countdown.vue'
 import Card from '@/components/organisms/Card.vue'
+
+import allChallenges from '~/assets/challenges/data';
 
 import { playAudio, sendNotification, getRandomNumber, scroollToElement } from '@/utils'
 interface Head {
@@ -68,7 +70,6 @@ export default Vue.extend({
       hasCountdownCompleted: 'hasCompleted',
       isCountdownActive: 'isActive',
     }),
-    ...mapGetters('challenges', ['challengesLength'])
   },
   methods: {
     ...mapMutations({
@@ -81,8 +82,8 @@ export default Vue.extend({
       this.setCountdownIsActive(flag)
     },
     getNewChallenge () {
-      const index = getRandomNumber(0, this.challengesLength)
-      console.log(index)
+      const index = getRandomNumber(0, allChallenges.length);
+      console.log(allChallenges)
       this.setCountdownHasCompleted(true)
       this.setCurrentChallengesIndex(index)
 
