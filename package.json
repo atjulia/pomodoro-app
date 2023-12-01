@@ -15,13 +15,8 @@
     "@nuxt/typescript-runtime": "^2.0.1",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.8.3",
-<<<<<<< HEAD
     "node-fetch-native": "^1.4.1",
     "nuxt": "^2.14.12"
-=======
-    "nuxt": "^2.14.12",
-    "phosphor-icons": "^1.4.2"
->>>>>>> 632d781110c622318ac59abd11f07226f7c08d95
   },
   "devDependencies": {
     "@nuxt/postcss8": "^1.1.3",
