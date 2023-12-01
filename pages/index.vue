@@ -1,31 +1,31 @@
 <template>
-  <section class="flex flex-col lg:flex-row flex-1 lg:flex-none lg:mt-16 sm:gab-x-10 md:gap-x-20">
-    <div class="flex flex-col w-full lg:w-1/2">
-      <Profile />
+  <section class="flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20 ">
+    <div class="flex flex-col w-full lg:w-1/2 pb-4">
       <CompletedChallenges />
-      <Countdown @completed="getNewChallenge"/>
+      <Countdown @completed="getNewChallenge" class="pb-2"/>
       <button 
         v-if="hasCountdownCompleted" 
         disabled 
-        class="bg-white text-text border-b-2 border-green cursor-not-allowed h-20"
+        class="button completed"
       >
         Cycle completed
       </button>
       <button 
         v-else-if="isCountdownActive" 
         @click="setCountdownState(false)" 
-        class="bg-white text-text hover:bg-red hover:text-white h-20"
+        class="button abandon"
       >
         Abandon cycle
       </button>
       <button 
         v-else 
         @click="setCountdownState(true)" 
-        class="bg-blue text-white hover:bg-blue-dark h-20"
+        class="button start"
       >
-        Start cycle
+        Start a cycle
       </button>
     </div>
+    <Card  id="challenge" class="w-full lg:w-1/2" />
   </section>
 </template>
 
@@ -33,13 +33,17 @@
 import Vue from 'vue'
 
 import { mapState, mapMutations } from 'vuex'
+import { Mutations as ChallengesMT } from '@/store/challenges/types' 
 import { Mutations as CountdownMT } from '@/store/countdown/types'
 
 import CompletedChallenges from '@/components/atoms/CompletedChallenges.vue'
 import Profile from '@/components/molecules/Profile.vue'
 import Countdown from '@/components/molecules/Countdown.vue'
+import Card from '@/components/organisms/Card.vue'
 
-import { playAudio, sendNotification } from '@/utils'
+import allChallenges from '~/assets/challenges/data';
+
+import { playAudio, sendNotification, getRandomNumber, scroollToElement } from '@/utils'
 interface Head {
   title: string
 }
@@ -47,13 +51,14 @@ interface Head {
 export default Vue.extend({
   head (): Head {
     return {
-      title: 'Home | pomodoro'
+      title: 'Home | Pomodorofocus'
     } 
   },
   components: {
     CompletedChallenges,
     Profile,
-    Countdown
+    Countdown,
+    Card
   },
   mounted () {
     if ('Notification' in window) {
@@ -64,27 +69,35 @@ export default Vue.extend({
     ...mapState('countdown', {
       hasCountdownCompleted: 'hasCompleted',
       isCountdownActive: 'isActive',
-    })
+    }),
   },
   methods: {
     ...mapMutations({
       setCountdownHasCompleted: `countdown/${CountdownMT.SET_HAS_COMPLETED}`,
-      setCountdownIsActive: `countdown/${CountdownMT.SET_IS_ACTIVE}`
+      setCountdownIsActive: `countdown/${CountdownMT.SET_IS_ACTIVE}`,
+      setCurrentChallengesIndex: `challenges/${ChallengesMT.SET_CURRENT_CHALLENGE_INDEX}`
     }),
     setCountdownState (flag: boolean) {
       this.setCountdownHasCompleted(false)
       this.setCountdownIsActive(flag)
     },
     getNewChallenge () {
+      const index = getRandomNumber(0, allChallenges.length);
+      console.log(allChallenges)
       this.setCountdownHasCompleted(true)
+      this.setCurrentChallengesIndex(index)
 
       if (Notification?.permission === 'granted') {
         playAudio('/notification.mp3')
         sendNotification('New Challenge', {
           body: 'A new challenge has started! Go complete it!',
-          icon: '/favicon.png'
+          icon: '/favicon.svg'
         })
       }
+
+      this.$nextTick(() => {
+        scroollToElement('#challenge')
+      })
     }
   }
 })
