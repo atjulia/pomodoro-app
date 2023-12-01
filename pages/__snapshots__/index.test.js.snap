@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages:index Snapshots should render all child components and abandon cycle button 1`] = `
+"<section class=\\"flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20\\">
+  <div class=\\"flex flex-col w-full lg:w-1/2 pb-4\\">
+    <completedchallenges-stub></completedchallenges-stub>
+    <countdown-stub class=\\"pb-2\\"></countdown-stub> <button class=\\"button start\\">
+      Start cycle
+    </button>
+  </div>
+  <card-stub id=\\"challenge\\" class=\\"w-full lg:w-1/2\\"></card-stub>
+</section>"
+`;
+
+exports[`Pages:index Snapshots should render all child components and cycle completed button 1`] = `
+"<section class=\\"flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20\\">
+  <div class=\\"flex flex-col w-full lg:w-1/2 pb-4\\">
+    <completedchallenges-stub></completedchallenges-stub>
+    <countdown-stub class=\\"pb-2\\"></countdown-stub> <button class=\\"button start\\">
+      Start cycle
+    </button>
+  </div>
+  <card-stub id=\\"challenge\\" class=\\"w-full lg:w-1/2\\"></card-stub>
+</section>"
+`;
+
+exports[`Pages:index Snapshots should render all child components and start a cycle button 1`] = `
+"<section class=\\"flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20\\">
+  <div class=\\"flex flex-col w-full lg:w-1/2 pb-4\\">
+    <completedchallenges-stub></completedchallenges-stub>
+    <countdown-stub class=\\"pb-2\\"></countdown-stub> <button class=\\"button start\\">
+      Start cycle
+    </button>
+  </div>
+  <card-stub id=\\"challenge\\" class=\\"w-full lg:w-1/2\\"></card-stub>
+</section>"
+`;
