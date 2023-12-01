@@ -22,7 +22,7 @@
         @click="setCountdownState(true)" 
         class="button start"
       >
-        Start cycle
+        Start a cycle
       </button>
     </div>
     <Card  id="challenge" class="w-full lg:w-1/2" />
