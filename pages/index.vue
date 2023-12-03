@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20 ">
+  <section class="flex flex-col lg:flex-row justify-center items-center flex-1 lg:flex-none lg:mt-10 sm:gab-x-10 md:gap-x-20 ">
     <div class="flex flex-col w-full lg:w-1/2 pb-4">
       <CompletedChallenges />
       <Countdown @completed="getNewChallenge" class="pb-2"/>
